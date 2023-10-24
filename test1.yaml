@@ -1,0 +1,34 @@
+name: test1
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Prepara Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        pip install flask
+        pip install pytest
+
+    - name: Run API tests
+      run: |
+        # Run the API server in the background
+        python api_calculadora.py &
+        # Wait for the server to start (adjust the sleep duration based on your API's startup time)
+        sleep 3
+        # Run tests (replace the following command with your specific testing command)
+        pytest home/anxo/daw2/desplegament/
+
